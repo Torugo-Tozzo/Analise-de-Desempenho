@@ -1,41 +1,45 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
+#include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
-double uniform() {
-    double u = rand() / ((double) RAND_MAX + 1);
-    //LIMITA ENTRE 0 E 1
-    u = 1.0 - u;
-    return (u);
+double uniforme() {
+	double u = rand() / ((double) RAND_MAX + 1);
+	//limitando entre (0,1]
+	u = 1.0 - u;
+
+	return (u);
 }
 
 int main(){
-
-    //E[x] = 1/L
-    //e[x] = 5
+    //Na Exponencial, E[X] = 1/l
+    // E[X] = 5
+    // 1/l = 5
     // l = 1/5
-    //l = 0.2
-
+    // l = 0.2
     double l;
-    printf("informe o tempo medio em segundos");
+    printf("Informe o tempo medio (s): ");
     scanf("%lF", &l);
     l = 1.0/l;
 
-    //variaveis do calculo da media final
+    // variaveis para calculo da media final
     double soma = 0.0;
-    double qtd_numeros_gerados = 1000000;
+    double qtd_valores_gerados = 1000000000;
 
+    // iniciando a semente p/ a geracao dos numeros
+    //pseudo-aleatorios
     int semente = time(NULL);
+    // int semente = 10;
     srand(semente);
-
+    
     int i;
-    for(i = 0;i < qtd_numeros_gerados; i++){
-        double valor = (-1.0/l)*log(uniforme());
+    for(i = 0; i < qtd_valores_gerados; i++){
+        double valor = (-1.0/l) * log(uniforme());
+        printf("%lF\n", valor);
         getchar();
         soma += valor;
     }
-    printf("media %lF\n", (soma/qtd_numeros_gerados));
+    printf("media: %lF\n", (soma/qtd_valores_gerados));
 
     return 0;
 }
